@@ -12,6 +12,7 @@ export class CreateAppointments1606311243218 implements MigrationInterface {
                         type: 'varchar',
                         isPrimary: true,
                         generationStrategy: 'uuid',
+                        default: 'uuid_generate_v4()',
                     },
                     {
                         name: 'provider',
@@ -29,6 +30,6 @@ export class CreateAppointments1606311243218 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('appoitments');
+        await queryRunner.dropTable('appointments');
     }
 }

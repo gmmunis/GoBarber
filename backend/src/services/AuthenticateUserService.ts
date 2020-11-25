@@ -1,6 +1,6 @@
 import { compare } from 'bcryptjs';
 import { getRepository } from 'typeorm';
-// import { hash } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
 
 import User from '../models/User';
 
@@ -10,7 +10,8 @@ interface Request {
 }
 
 interface Response {
-  user: User
+  user: User;
+  token: string;
 }
 
 class AuthenticateUserService {
@@ -29,8 +30,14 @@ class AuthenticateUserService {
       throw new Error('Incorrect email/password combination.');
     }
 
+    const token = sign({}, 'c332152e1a7819b33db3aa9e9f4477bd', {
+      subject: user.id,
+      expiresIn: '365d',
+    });
+
     return {
       user,
+      token,
     };
   }
 }

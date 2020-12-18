@@ -1,13 +1,19 @@
+import FakeCacheProvider from '@shared/container/provider/CacheProvider/fakes/FakeCacheProvider';
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
 import ListProviderAppointmentsService from './ListProviderAppointmentsService';
 
-let listProviderAppointments: ListProviderAppointmentsService;
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
+let fakeCacheProvider: FakeCacheProvider;
+let listProviderAppointments: ListProviderAppointmentsService;
 
 describe('ListProviderAppointments', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
-    listProviderAppointments = new ListProviderAppointmentsService(fakeAppointmentsRepository);
+    fakeCacheProvider = new FakeCacheProvider();
+    listProviderAppointments = new ListProviderAppointmentsService(
+      fakeAppointmentsRepository,
+      fakeCacheProvider,
+    );
   });
 
   it('should be able to list the appointments on a specific day', async () => {
@@ -25,14 +31,11 @@ describe('ListProviderAppointments', () => {
 
     const appointments = await listProviderAppointments.execute({
       provider_id: 'provider',
-      day: 20,
       year: 2020,
       month: 5,
+      day: 20,
     });
 
-    expect(appointments).toEqual([
-      appointment1,
-      appointment2
-    ]);
+    expect(appointments).toEqual([appointment1, appointment2]);
   });
 });

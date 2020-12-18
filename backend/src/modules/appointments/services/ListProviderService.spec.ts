@@ -1,16 +1,18 @@
-
+import FakeCacheProvider from '@shared/container/provider/CacheProvider/fakes/FakeCacheProvider';
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import ListProviderService from './ListProviderService';
 
 let fakeUsersRepository: FakeUsersRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let listProvider: ListProviderService;
 
 describe('listProvider', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
-    
+    fakeCacheProvider = new FakeCacheProvider();
+
     listProvider = new ListProviderService(
-    fakeUsersRepository
+      fakeUsersRepository, fakeCacheProvider
     );
   });
 

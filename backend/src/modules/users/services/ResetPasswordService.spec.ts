@@ -1,13 +1,14 @@
+import AppError from '@shared/errors/AppError';
+
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeUserTokensRepository from '../repositories/fakes/FakeUserTokensRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import ResetPasswordService from './ResetPasswordService';
-import AppError from '@shared/errors/AppError';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeUserTokensRepository: FakeUserTokensRepository;
-let resetPassword: ResetPasswordService;
 let fakeHashProvider: FakeHashProvider;
+let resetPassword: ResetPasswordService;
 
 describe('ResetPasswordService', () => {
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe('ResetPasswordService', () => {
     resetPassword = new ResetPasswordService(
       fakeUsersRepository,
       fakeUserTokensRepository,
-      fakeHashProvider
+      fakeHashProvider,
     );
   });
 
@@ -54,7 +55,9 @@ describe('ResetPasswordService', () => {
   });
 
   it('should not be able to reset the password with non-existing user', async () => {
-    const { token } = await fakeUserTokensRepository.generate('non-existing-user');
+    const { token } = await fakeUserTokensRepository.generate(
+      'non-existing-user',
+    );
 
     await expect(
       resetPassword.execute({

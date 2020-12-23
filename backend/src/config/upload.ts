@@ -18,7 +18,7 @@ interface IUploadConfig {
     disk: {};
     aws: {
       bucket: string;
-    }
+    };
   };
 }
 
@@ -33,9 +33,9 @@ export default {
       destination: tmpFolder,
       filename: (request, file, callback) => {
         const fileHash = crypto.randomBytes(10).toString('hex');
-        const filename = `${fileHash}-${file.originalname}`;
+        const fileName = `${fileHash}-${file.originalname}`;
 
-        return callback(null, filename);
+        return callback(null, fileName);
       },
     }),
   },
@@ -43,7 +43,7 @@ export default {
   config: {
     disk: {},
     aws: {
-      bucket: 'app-gobarber',
+      bucket: 'app-gobarber-2',
     },
   },
 } as IUploadConfig;

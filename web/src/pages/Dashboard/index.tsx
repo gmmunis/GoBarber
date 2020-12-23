@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { FiPower } from 'react-icons/fi';
-import { Container, Header, HeaderContent, Profile } from './styles';
+import { FiClock, FiPower } from 'react-icons/fi';
+import { Container, Header, HeaderContent, Profile, Content, Schedule, Calendar, NextAppointment } from './styles';
 
 import logoImg from '../../assets/logo.svg';
 import { useAuth } from '../../hooks/auth';
@@ -16,7 +16,7 @@ const Dashboard: React.FC = () => {
           <img src={logoImg} alt="GoBarber" />
 
           <Profile>
-            <img src={user.avatar_url} alt={user.name} />
+            <img src="https://media-exp1.licdn.com/dms/image/C4D03AQEIo5yV_WiaHQ/profile-displayphoto-shrink_200_200/0/1599415331003?e=1614211200&v=beta&t=3s2q0yVvnWs9cZKdLb_BxquPiPNL6Rp-JBaLF_z0uqE" alt="Gui Munis" />
             <div>
               <span>Bem-vindo,</span>
               <strong>{user.name}</strong>
@@ -28,6 +28,30 @@ const Dashboard: React.FC = () => {
           </button>
         </HeaderContent>
       </Header>
+
+      <Content>
+        <Schedule>
+          <h1>Horários agendados</h1>
+          <p>
+            <span>Hoje</span>
+            <span>Dia 06</span>
+            <span>Segunda-feira</span>
+          </p>
+
+          <NextAppointment>
+            <strong>Atendimento a seguir</strong>
+            <div>
+              <img src="https://media-exp1.licdn.com/dms/image/C4D03AQEIo5yV_WiaHQ/profile-displayphoto-shrink_200_200/0/1599415331003?e=1614211200&v=beta&t=3s2q0yVvnWs9cZKdLb_BxquPiPNL6Rp-JBaLF_z0uqE" alt="Gui Munis"/>
+              <strong>Gui Munis</strong>
+              <span>
+                <FiClock />
+                08:00
+              </span>
+            </div>
+          </NextAppointment>
+        </Schedule>
+        <Calendar />
+      </Content>
     </Container>
   );
 }

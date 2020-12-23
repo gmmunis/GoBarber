@@ -176,6 +176,7 @@ export const Section = styled.section`
       display: flex;
       align-items: center;
       color: #f4ede8;
+      width: 70px;
 
       svg {
         color: #ff9000;

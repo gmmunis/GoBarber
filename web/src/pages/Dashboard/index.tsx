@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { isToday, format } from 'date-fns';
+import { isToday, format, parseISO  } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -30,6 +30,7 @@ interface MonthAvailabilityItem {
 interface AppointmentCalendar {
   id: string;
   date: string;
+  hourFormatted: string;
   user: {
     name: string;
     avatar_url: string;
@@ -43,7 +44,7 @@ const Dashboard: React.FC = () => {
 
   const [monthAvailability, setMonthAvailability] = useState<MonthAvailabilityItem[]>([]);
 
-  const [,setAppointments] = useState<AppointmentCalendar[]>([]);
+  const [appointments,setAppointments] = useState<AppointmentCalendar[]>([]);
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if (modifiers.available) {
@@ -67,18 +68,24 @@ const Dashboard: React.FC = () => {
   }, [currentMonth, user.id]);
 
   useEffect(() => {
-    api.get('/appointments/me', {
+    api.get<AppointmentCalendar[]>('/appointments/me', {
       params: {
         year: selectedDate.getFullYear(),
         month: selectedDate.getMonth() + 1,
         day: selectedDate.getDate(),
       }
     }).then(response => {
-      setAppointments(response.data);
+      const appointmentsFormatted = response.data.map(appointment => {
+        return {
+          ...appointment,
+          hourFormatted: format(parseISO(appointment.date), 'HH:mm'),
+        };
+      });
 
-  console.log(response.data);
+      console.log(appointmentsFormatted);
 
-    })
+      setAppointments(appointmentsFormatted);
+    });
   }, [selectedDate]);
 
   const disabledDays = useMemo(() => {
@@ -102,6 +109,18 @@ const Dashboard: React.FC = () => {
   const selectedWeekDay = useMemo(() => {
     return format(selectedDate, 'ccc', { locale: ptBR });
   }, [selectedDate]);
+
+  const morningAppointments = useMemo(() => {
+    return appointments.filter(appointment => {
+      return parseISO(appointment.date).getHours() < 12;
+    });
+  }, [appointments]);
+
+  const afternoonAppointments = useMemo(() => {
+    return appointments.filter(appointment => {
+      return parseISO(appointment.date).getHours() >= 12;
+    });
+  }, [appointments]);
 
   return (
     <Container>
@@ -147,45 +166,39 @@ const Dashboard: React.FC = () => {
           <Section>
             <strong>Manhã</strong>
 
-            <Appointment>
+            {morningAppointments.map(appointment => (
+              <Appointment key={appointment.id}>
               <span>
                 <FiClock />
-                08:00
+                {appointment.hourFormatted}
               </span>
 
               <div>
-                <img src="https://media-exp1.licdn.com/dms/image/C4D03AQEIo5yV_WiaHQ/profile-displayphoto-shrink_200_200/0/1599415331003?e=1614211200&v=beta&t=3s2q0yVvnWs9cZKdLb_BxquPiPNL6Rp-JBaLF_z0uqE" alt="Gui Munis" />
-                <strong>Gui Munis</strong>
+                <img src={appointment.user.avatar_url} 
+                alt={appointment.user.name} />
+                <strong>{appointment.user.name}</strong>
               </div>
             </Appointment>
-
-            <Appointment>
-              <span>
-                <FiClock />
-                08:00
-              </span>
-
-              <div>
-                <img src="https://media-exp1.licdn.com/dms/image/C4D03AQEIo5yV_WiaHQ/profile-displayphoto-shrink_200_200/0/1599415331003?e=1614211200&v=beta&t=3s2q0yVvnWs9cZKdLb_BxquPiPNL6Rp-JBaLF_z0uqE" alt="Gui Munis" />
-                <strong>Gui Munis</strong>
-              </div>
-            </Appointment>
+            ))}
           </Section>
 
           <Section>
             <strong>Tarde</strong>
 
-            <Appointment>
+            {afternoonAppointments.map(appointment => (
+              <Appointment key={appointment.id}>
               <span>
                 <FiClock />
-                13:00
+                {appointment.hourFormatted}
               </span>
 
               <div>
-                <img src="https://media-exp1.licdn.com/dms/image/C4D03AQEIo5yV_WiaHQ/profile-displayphoto-shrink_200_200/0/1599415331003?e=1614211200&v=beta&t=3s2q0yVvnWs9cZKdLb_BxquPiPNL6Rp-JBaLF_z0uqE" alt="Gui Munis" />
-                <strong>Gui Munis</strong>
+                <img src={appointment.user.avatar_url} 
+                alt={appointment.user.name} />
+                <strong>{appointment.user.name}</strong>
               </div>
             </Appointment>
+            ))}
           </Section>
         </Schedule>
         <Calendar>

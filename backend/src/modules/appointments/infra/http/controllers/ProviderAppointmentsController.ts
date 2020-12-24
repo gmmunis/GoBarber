@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import ListProviderAppointments from '@modules/appointments/services/ListProviderAppointmentsService';
+import ListProviderAppointmentsService from '@modules/appointments/services/ListProviderAppointmentsService';
 import { classToClass } from 'class-transformer';
 
 export default class ProviderAppointmentsController {
@@ -9,7 +9,9 @@ export default class ProviderAppointmentsController {
     const provider_id = request.user.id;
     const { day, month, year } = request.query;
 
-    const listProviderAppointments = container.resolve(ListProviderAppointments);
+    const listProviderAppointments = container.resolve(
+      ListProviderAppointmentsService,
+    );
 
     const appointments = await listProviderAppointments.execute({
       provider_id,

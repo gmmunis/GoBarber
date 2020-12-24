@@ -17,6 +17,9 @@
       ],
       "@shared/*": [
         "shared/*"
+      ],
+      "exclude": [
+        "coverage"
       ]
     },
     "esModuleInterop": true,

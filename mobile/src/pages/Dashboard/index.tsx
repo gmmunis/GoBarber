@@ -19,7 +19,9 @@ import {
   ProviderName,
   ProviderMeta,
   ProviderMetaText,
-  ProvidersListTitle
+  ProvidersListTitle,
+  SignOutButton,
+  SignOutButtonText
 } from './styles';
 
 export interface Provider {
@@ -90,6 +92,9 @@ const Dashboard: React.FC = () => {
           </ProviderContainer>
         )}
       />
+      <SignOutButton onPress={() => {}}>
+          <SignOutButtonText>Sair</SignOutButtonText>
+        </SignOutButton>
     </Container>
   );
 };

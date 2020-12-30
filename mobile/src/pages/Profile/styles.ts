@@ -1,5 +1,5 @@
-import { Platform } from 'react-native';
 import styled from 'styled-components/native';
+import { Platform } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
@@ -16,16 +16,19 @@ export const Title = styled.Text`
 `;
 
 export const BackButton = styled.TouchableOpacity`
-  margin-top: 40px;
+  position: absolute;
+  left: 24px;
+  top: 64px;
 `;
 
 export const UserAvatarButton = styled.TouchableOpacity`
-margin-top: 32px;
+  margin-top: 32px;
 `;
 
 export const UserAvatar = styled.Image`
-  width: 186px;
-  height: 186px;
+  width: 156px;
+  height: 156px;
   border-radius: 98px;
+  margin-top: 98px;
   align-self: center;
 `;

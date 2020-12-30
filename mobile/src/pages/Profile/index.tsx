@@ -125,11 +125,11 @@ const Profile: React.FC = () => {
       takePhotoButtonTitle: 'Usar câmera',
       chooseFromLibraryButtonTitle: 'Escolher da galeria'
     }, response => {
-      if(response.didCancel) {
+      if (response.didCancel) {
         return;
       }
 
-      if(response.error) {
+      if (response.error) {
         Alert.alert('Erro ao atualizar seu avatar.');
         return;
       }
@@ -143,9 +143,9 @@ const Profile: React.FC = () => {
       });
 
       api.patch('users/avatar', data)
-      .then(apiResponse => {
-        updateUser(apiResponse.data);
-      });
+        .then(apiResponse => {
+          updateUser(apiResponse.data);
+        });
     });
   }, [updateUser, user.id]);
 
@@ -173,6 +173,7 @@ const Profile: React.FC = () => {
             <UserAvatarButton onPress={handleUpdateAvatar}>
               <UserAvatar source={{ uri: user.avatar_url }} />
             </UserAvatarButton>
+            
             <View>
               <Title>Meu perfil</Title>
             </View>

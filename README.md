@@ -9,15 +9,14 @@ Plataforma de agendamento e gerenciamento para barbearias
 <h3>🚀 Tecnologias</h3>
 <ul>
 	<li><a href="https://www.typescriptlang.org/">TypeScript</a>: Linguagem.</li>
-	<li><a href="https://nodejs.org/en/">NodeJs</a>: Ambiente de xecução.</li>
+	<li><a href="https://nodejs.org/en/">NodeJs</a>: Ambiente de execução.</li>
 	<li><a href="https://expressjs.com/">Express</a>: API Framework.</li>
-	<li><a href="https://github.com/auth0/node-jsonwebtoken">Express</a>:Autenticação JWT</li>
-	<li><a href="https://github.com/expressjs/multer">Express</a>:Upload de Arquivos</li>
-	<li><a href="https://www.postgresql.org/">Express</a>:Banco de Dados</li>
-	<li><a href="https://www.postgresql.org/">Express</a>:Banco de Dados</li>
-	<li><a href="https://typeorm.io/#/">Express</a>:ORM</li>
-	<li><a href="https://jestjs.io/">Express</a>:Testes</li>
-	<li><a href="https://github.com/microsoft/tsyringe">Express</a>:Lib de injeção de dependencias. <a href="https://github.com/thenativeweb/uuidv4#readme">uuidv4:</a> uuid.</li>
+	<li><a href="https://github.com/auth0/node-jsonwebtoken">JsonWebToken</a>:Autenticação JWT</li>
+	<li><a href="https://github.com/expressjs/multer">Multer</a>:Upload de Arquivos</li>
+	<li><a href="https://www.postgresql.org/">Postgres</a>:Banco de Dados</li>
+	<li><a href="https://typeorm.io/#/">Typeorm</a>:ORM</li>
+	<li><a href="https://jestjs.io/">Jest</a>:Testes</li>
+	<li><a href="https://github.com/microsoft/tsyringe">tsyringe</a>:Lib de injeção de dependencias. <a href="https://github.com/thenativeweb/uuidv4#readme">uuidv4:</a> uuid.</li>
 </ul>
 <h3>🔖 Layout</h3>
 <p>Uma API Rest, que retorna o conteúdo em JSON que vai ser consumida tanto por um Front-end em <a href="https://reactjs.org/">ReactJS</a> quanto por uma aplicação Mobile Hibrido com <a href="https://reactnative.dev/">React Native</a>.</p>
